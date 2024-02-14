@@ -87,7 +87,6 @@ public class MainActivityTest4 {
         materialButton.perform(click());
     }
 
-
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
