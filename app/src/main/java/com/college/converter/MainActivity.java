@@ -3,10 +3,13 @@ package com.college.converter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.college.converter.databinding.ActivityMainBinding;
 
 /*
     TODOs:
@@ -24,25 +27,32 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     static private final Float CONVERSION_RATE = 0.80F;
+    private ActivityMainBinding variableBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Log.i( "MainActivity", "In onCreate() - Loading Widgets" );
 
-        Button buttonConvert = findViewById(R.id.convertButton);
+        super.onCreate(savedInstanceState);
+        variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(variableBinding.getRoot());
+
+        Button buttonConvert = variableBinding.convertButton;
 
         buttonConvert.setOnClickListener( view ->  {
             convertCurrency(view);
         } );
+
+        Log.i( "MainActivity", "In onCreate() - Loaded with Widgets" );
     }
 
     public void convertCurrency(View view) {
+        Log.i( "MainActivity", "In convertCurrency() - Currency to Convert" );
 
-        EditText inputView = findViewById(R.id.entryId);
+        EditText inputView = variableBinding.entryId;
 
         String inputAmount = inputView.getText().toString();
 
-        TextView resultView = findViewById(R.id.resultId);
+        TextView resultView = variableBinding.resultId;
 
         if (!inputAmount.isEmpty()) {
             Float inputAmountDecimal = Float.valueOf(inputAmount);
@@ -51,5 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             resultView.setText( resultFloat + " Euros" );
         }
+
+        Log.i( "MainActivity", "In convertCurrency() - Currency Converted" );
     }
 }
